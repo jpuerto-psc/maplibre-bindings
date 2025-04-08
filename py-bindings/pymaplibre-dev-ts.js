@@ -1763,6 +1763,82 @@
     }
   });
 
+  // built/css/custom-layer-switcher-control.css
+  var require_custom_layer_switcher_control = __commonJS({
+    "built/css/custom-layer-switcher-control.css"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  // built/custom-controls/layer-switcher.js
+  var require_layer_switcher = __commonJS({
+    "built/custom-controls/layer-switcher.js"(exports) {
+      "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      require_custom_layer_switcher_control();
+      var THEMES = {
+        default: "layer-switcher-ctrl",
+        simple: "layer-switcher-ctrl-simple"
+      };
+      function createLayerLink(map, layerId) {
+        const link = document.createElement("a");
+        link.id = layerId;
+        link.href = "#";
+        link.textContent = layerId;
+        const visibility = map.getLayoutProperty(layerId, "visibility");
+        if (typeof visibility === "undefined" || visibility === "visible") {
+          link.className = "active";
+        }
+        link.onclick = function(e) {
+          const layerIdClicked = link.textContent;
+          const visibility2 = map.getLayoutProperty(layerIdClicked, "visibility");
+          console.log(layerIdClicked, visibility2);
+          if (typeof visibility2 === "undefined" || visibility2 === "visible") {
+            map.setLayoutProperty(layerIdClicked, "visibility", "none");
+            link.className = "";
+            return;
+          }
+          map.setLayoutProperty(layerIdClicked, "visibility", "visible");
+          link.className = "active";
+        };
+        return link;
+      }
+      function createMenu(map, layerIds) {
+        const menu = document.createElement("div");
+        menu.id = "layer-switcher-menu";
+        for (const layerId of layerIds) {
+          const link = createLayerLink(map, layerId);
+          menu.appendChild(link);
+        }
+        return menu;
+      }
+      var LayerSwitcherControl = class {
+        constructor(options) {
+          this._container = null;
+          this._options = options;
+        }
+        onAdd(map) {
+          this._map = map;
+          this._container = document.createElement("div");
+          this._container.classList.add("maplibregl-ctrl");
+          this._container.classList.add(THEMES[this._options.theme || "default"]);
+          this._container.style.cssText = this._options.cssText || "";
+          const layerIds = this._options.layerIds;
+          this._container.appendChild(createMenu(map, layerIds));
+          return this._container;
+        }
+        onRemove() {
+          this._container.parentNode.removeChild(this._container);
+          this._map = void 0;
+        }
+        getDefaultPosition() {
+          return "top-left";
+        }
+      };
+      exports.default = LayerSwitcherControl;
+    }
+  });
+
   // node_modules/mustache/mustache.js
   var require_mustache = __commonJS({
     "node_modules/mustache/mustache.js"(exports, module) {
@@ -2310,6 +2386,8 @@
       maplibregl.addProtocol("pmtiles", protocol.tile);
       var info_box_1 = __importDefault(require_info_box());
       maplibregl.InfoBoxControl = info_box_1.default;
+      var layer_switcher_1 = __importDefault(require_layer_switcher());
+      maplibregl.LayerSwitcherControl = layer_switcher_1.default;
       var utils_1 = require_utils();
       function getJSONConverter() {
         if (typeof deck === "undefined") {

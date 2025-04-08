@@ -24,6 +24,12 @@ type Popup = {
 
 // Custom controls
 type InfoBoxControlOptions = {
-  cssText: string;
   content: string;
+  cssText: string;
+}
+
+type LayerSwitcherControlOptions = {
+  layerIds: [string];
+  theme: string;
+  cssText: string;
 }
