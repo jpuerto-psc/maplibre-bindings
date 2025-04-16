@@ -66,6 +66,10 @@ function getCustomMapMethods(maplibregl, map) {
     },
 
     addControl: function (type, options, position) {
+      if (type === "GeocodingControl") {
+        options.maplibregl = maplibregl;
+      }
+
       map.addControl(new maplibregl[type](options), position);
     },
 
