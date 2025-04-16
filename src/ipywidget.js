@@ -1,10 +1,17 @@
-import maplibregl from "https://esm.sh/maplibre-gl@5.3.0";
+// import maplibregl from "https://esm.sh/maplibre-gl@5.3.0";
+import maplibregl from "maplibre-gl";
 import { Protocol } from "https://esm.sh/pmtiles@3.0.6";
 
-import "./css/maplibre-gl.css";
+// import "./css/maplibre-gl.css";
+import "@maptiler/geocoding-control/style.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
+
+// Add maptiler geocoding control
+import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
+maplibregl.GeocodingControl = GeocodingControl;
 
 // Add custom controls
 import InfoBoxControl from "./custom-controls/info-box";
