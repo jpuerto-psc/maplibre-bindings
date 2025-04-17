@@ -48,12 +48,12 @@ if (typeof MapboxDraw !== "undefined") {
 
 // TODO: Rename to 'MapLibreWidget'
 export default class MapWidget {
-  _id: string;
-  _map: any; // maplibregl.Map;
+  _id: string | HTMLElement;
+  _map: maplibregl.Map;
   _JSONConverter: any;
   _deckOverlay: any;
 
-  constructor(mapOptions: MapOptions) {
+  constructor(mapOptions: maplibregl.MapOptions) {
     this._id = mapOptions.container;
     this._map = new maplibregl.Map(mapOptions);
 
@@ -73,13 +73,16 @@ export default class MapWidget {
   }
 
   applyMapMethod(name: string, params: []): void {
+    // @ts-expect-error
     this._map[name](...params);
   }
 
   addControl(type: string, options: any, position: string): void {
+    /*
     if (type === "GeocodingControl") {
       options.maplibregl = maplibregl;
     }
+    */
     // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }
@@ -157,8 +160,11 @@ export default class MapWidget {
     });
   }
 
-  setSourceData(sourceId: string, data: object): void {
-    this._map.getSource(sourceId).setData(data);
+  setSourceData(sourceId: string, data: any): void {
+    const source: maplibregl.GeoJSONSource | undefined =
+      this._map.getSource(sourceId);
+    source?.setData(data);
+    // this._map.getSource(sourceId)?.setData(data);
   }
 
   addDeckOverlay(deckLayers: [], tooltip: any = null): void {
@@ -204,7 +210,8 @@ export default class MapWidget {
 
   addMapboxDraw(
     options: object,
-    position: string,
+    // position: string,
+    position: maplibregl.ControlPosition,
     geojson: object | null = null,
   ): void {
     const draw = new MapboxDraw(options);

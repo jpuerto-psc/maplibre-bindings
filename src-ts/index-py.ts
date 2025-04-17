@@ -2,6 +2,8 @@ import MapWidget from "./pywidget";
 import { getViewState } from "./utils";
 
 const VERSION = "0.3.0";
+const MAP_TARGET = "mapwidget";
+
 console.log("maplibregl-bindings", VERSION);
 
 if (typeof Shiny === "undefined") {
@@ -31,7 +33,7 @@ if (typeof Shiny !== "undefined") {
       return scope.find(".shiny-maplibregl-output");
     }
 
-    renderValue(el: HTMLElement, payload: Payload) {
+    renderValue(el: HTMLElement, payload: Payload): void {
       console.log("id:", el.id, "payload:", payload);
       const mapWidget = ((window as any)._maplibreWidget = new MapWidget(
         Object.assign({ container: el.id }, payload.mapData.mapOptions),

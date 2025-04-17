@@ -29432,9 +29432,6 @@ ${n2.shaderPreludeCode.vertexSource}`, define: n2.shaderDefine }, defaultProject
       this._map[name](...params);
     }
     addControl(type, options, position) {
-      if (type === "GeocodingControl") {
-        options.maplibregl = import_maplibre_gl2.default;
-      }
       this._map.addControl(new import_maplibre_gl2.default[type](options), position);
     }
     addMarker({ lngLat, popup, options }) {
@@ -29487,7 +29484,8 @@ ${n2.shaderPreludeCode.vertexSource}`, define: n2.shaderDefine }, defaultProject
       });
     }
     setSourceData(sourceId, data) {
-      this._map.getSource(sourceId).setData(data);
+      const source = this._map.getSource(sourceId);
+      source === null || source === void 0 ? void 0 : source.setData(data);
     }
     addDeckOverlay(deckLayers, tooltip = null) {
       if (typeof this._JSONConverter === "undefined") {
