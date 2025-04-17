@@ -18,7 +18,6 @@ export default class InfoBoxControl {
 
   onRemove() {
     this._container?.parentNode?.removeChild(this._container);
-
     this._map = undefined;
   }
 }

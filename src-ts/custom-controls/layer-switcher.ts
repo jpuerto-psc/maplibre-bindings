@@ -66,7 +66,6 @@ export default class LayerSwitcherControl {
 
   onRemove() {
     this._container?.parentNode?.removeChild(this._container);
-
     this._map = undefined;
   }
 

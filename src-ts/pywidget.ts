@@ -1,12 +1,19 @@
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+
 import { Protocol } from "pmtiles";
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
 // Add custom controls
 import InfoBoxControl from "./custom-controls/info-box";
+
+// @ts-expect-error
 maplibregl.InfoBoxControl = InfoBoxControl;
 
 import LayerSwitcherControl from "./custom-controls/layer-switcher";
+
+// @ts-expect-error
 maplibregl.LayerSwitcherControl = LayerSwitcherControl;
 
 import {
@@ -34,7 +41,7 @@ if (typeof MapboxDraw !== "undefined") {
 // TODO: Rename to 'MapLibreWidget'
 export default class MapWidget {
   _id: string;
-  _map: any;
+  _map: any // maplibregl.Map;
   _JSONConverter: any;
   _deckOverlay: any;
 
@@ -62,6 +69,7 @@ export default class MapWidget {
   }
 
   addControl(type: string, options: object, position: string) {
+    // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }
 

@@ -1,4 +1,4 @@
-const maplibregl = (window as any).maplibregl;
+// const maplibregl = (window as any).maplibregl;
 const deck = (window as any).deck;
 const MapboxDraw = (window as any).MapboxDraw;
 const Shiny = (window as any).Shiny;
@@ -33,3 +33,5 @@ type LayerSwitcherControlOptions = {
   theme: string;
   cssText: string;
 }
+
+// type MapLibreKey = keyof typeof maplibregl;

@@ -1,3 +1,4 @@
+import maplibregl from "maplibre-gl";
 import mustache from "mustache";
 
 function getTextFromFeature(feature: any, property: string | null, template: string | null) {
