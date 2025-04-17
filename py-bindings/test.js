@@ -32,7 +32,8 @@ const mapData = {
         ["flyTo", [{ "center": [-87.61694, 41.7] }]],
         ["addControl", ["NavigationControl"]],
         ["addControl", ["LayerSwitcherControl", { layerIds: ["earthquakes"] }]],
-        ["addControl", ["InfoBoxControl", { content: "Hi there!", cssText: "background: yellow; padding: 20px; color: blue;" }, "top-left"]]
+        ["addControl", ["InfoBoxControl", { content: "Hi there!", cssText: "background: yellow; padding: 20px; color: blue;" }, "top-left"]],
+        ["addControl", ["GeocodingControl", { apiKey: "maptiler-api-key" }]],
     ]
 };
 

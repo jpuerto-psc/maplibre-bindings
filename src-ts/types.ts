@@ -26,12 +26,12 @@ type Popup = {
 type InfoBoxControlOptions = {
   content: string;
   cssText: string;
-}
+};
 
 type LayerSwitcherControlOptions = {
   layerIds: [string];
   theme: string;
   cssText: string;
-}
+};
 
 // type MapLibreKey = keyof typeof maplibregl;

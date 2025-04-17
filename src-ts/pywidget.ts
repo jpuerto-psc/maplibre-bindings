@@ -1,5 +1,12 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import "@maptiler/geocoding-control/style.css";
+
+// Add maptiler geocoding control
+import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
+
+// @ts-expect-error
+maplibregl.GeocodingControl = GeocodingControl;
 
 // Add pmtiles protocol
 import { Protocol } from "pmtiles";
@@ -42,7 +49,7 @@ if (typeof MapboxDraw !== "undefined") {
 // TODO: Rename to 'MapLibreWidget'
 export default class MapWidget {
   _id: string;
-  _map: any // maplibregl.Map;
+  _map: any; // maplibregl.Map;
   _JSONConverter: any;
   _deckOverlay: any;
 
@@ -69,12 +76,23 @@ export default class MapWidget {
     this._map[name](...params);
   }
 
-  addControl(type: string, options: object, position: string): void {
+  addControl(type: string, options: any, position: string): void {
+    if (type === "GeocodingControl") {
+      options.maplibregl = maplibregl;
+    }
     // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }
 
-  addMarker({ lngLat, popup, options }: { lngLat: any, popup: Popup, options: maplibregl.MarkerOptions }): void {
+  addMarker({
+    lngLat,
+    popup,
+    options,
+  }: {
+    lngLat: any;
+    popup: Popup;
+    options: maplibregl.MarkerOptions;
+  }): void {
     const marker = new maplibregl.Marker(options).setLngLat(lngLat);
     if (popup) {
       const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
@@ -101,7 +119,11 @@ export default class MapWidget {
     }
   }
 
-  addPopup(layerId: string, property: string | null = null, template: string | null = null): void {
+  addPopup(
+    layerId: string,
+    property: string | null = null,
+    template: string | null = null,
+  ): void {
     const popupOptions: maplibregl.PopupOptions = {
       closeButton: false,
     };
@@ -114,7 +136,11 @@ export default class MapWidget {
     });
   }
 
-  addTooltip(layerId: string, property: string | null = null, template: string | null = null): void {
+  addTooltip(
+    layerId: string,
+    property: string | null = null,
+    template: string | null = null,
+  ): void {
     const popupOptions: maplibregl.PopupOptions = {
       closeButton: false,
       closeOnClick: false,
@@ -176,7 +202,11 @@ export default class MapWidget {
     this._deckOverlay.setProps({ layers });
   }
 
-  addMapboxDraw(options: object, position: string, geojson: object | null = null): void {
+  addMapboxDraw(
+    options: object,
+    position: string,
+    geojson: object | null = null,
+  ): void {
     const draw = new MapboxDraw(options);
     this._map.addControl(draw, position);
     if (geojson) draw.add(geojson);
