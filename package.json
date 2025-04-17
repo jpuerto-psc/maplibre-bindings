@@ -15,6 +15,7 @@
     "build-r": "esbuild src/index-r.js --bundle --minify --outfile=r-bindings/rmaplibre.js",
     "build-r-dev": "esbuild src/index-r.js --bundle --outfile=r-bindings/rmaplibre.js",
     "build-py-dev-ts": "tsc --build && cp -r src-ts/css built && esbuild built/index-py.js --bundle --outfile=py-bindings/pymaplibre-dev-ts.js",
+    "build-py-ts": "tsc --build && cp -r src-ts/css built && esbuild built/index-py.js --bundle --minify --outfile=py-bindings/pymaplibre.js",
     "prettier": "prettier src --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
