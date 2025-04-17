@@ -65,8 +65,7 @@ export default class LayerSwitcherControl {
   }
 
   onRemove() {
-    // @ts-expect-error
-    this._container.parentNode.removeChild(this._container);
+    this._container?.parentNode?.removeChild(this._container);
 
     this._map = undefined;
   }

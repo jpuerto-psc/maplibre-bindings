@@ -1755,7 +1755,8 @@
           return this._container;
         }
         onRemove() {
-          this._container.parentNode.removeChild(this._container);
+          var _a, _b;
+          (_b = (_a = this._container) === null || _a === void 0 ? void 0 : _a.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(this._container);
           this._map = void 0;
         }
       };
@@ -1828,7 +1829,8 @@
           return this._container;
         }
         onRemove() {
-          this._container.parentNode.removeChild(this._container);
+          var _a, _b;
+          (_b = (_a = this._container) === null || _a === void 0 ? void 0 : _a.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(this._container);
           this._map = void 0;
         }
         getDefaultPosition() {
