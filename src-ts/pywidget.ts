@@ -1,6 +1,7 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
+// Add pmtiles protocol
 import { Protocol } from "pmtiles";
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -60,20 +61,20 @@ export default class MapWidget {
     this._JSONConverter = getJSONConverter();
   }
 
-  getMap() {
+  getMap(): maplibregl.Map {
     return this._map;
   }
 
-  applyMapMethod(name: string, params: []) {
+  applyMapMethod(name: string, params: []): void {
     this._map[name](...params);
   }
 
-  addControl(type: string, options: object, position: string) {
+  addControl(type: string, options: object, position: string): void {
     // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }
 
-  addMarker({ lngLat, popup, options }: { lngLat: any, popup: Popup, options: object }) {
+  addMarker({ lngLat, popup, options }: { lngLat: any, popup: Popup, options: maplibregl.MarkerOptions }): void {
     const marker = new maplibregl.Marker(options).setLngLat(lngLat);
     if (popup) {
       const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
@@ -82,7 +83,7 @@ export default class MapWidget {
     marker.addTo(this._map);
   }
 
-  addLayer(layer: any, beforeId: string) {
+  addLayer(layer: any, beforeId: string): void {
     this._map.addLayer(layer, beforeId);
 
     // Add event listener
@@ -100,8 +101,8 @@ export default class MapWidget {
     }
   }
 
-  addPopup(layerId: string, property: string | null = null, template: string | null = null) {
-    const popupOptions = {
+  addPopup(layerId: string, property: string | null = null, template: string | null = null): void {
+    const popupOptions: maplibregl.PopupOptions = {
       closeButton: false,
     };
     const popup = new maplibregl.Popup(popupOptions);
@@ -113,8 +114,8 @@ export default class MapWidget {
     });
   }
 
-  addTooltip(layerId: string, property: string | null = null, template: string | null = null) {
-    const popupOptions = {
+  addTooltip(layerId: string, property: string | null = null, template: string | null = null): void {
+    const popupOptions: maplibregl.PopupOptions = {
       closeButton: false,
       closeOnClick: false,
     };
@@ -130,11 +131,11 @@ export default class MapWidget {
     });
   }
 
-  setSourceData(sourceId: string, data: object) {
+  setSourceData(sourceId: string, data: object): void {
     this._map.getSource(sourceId).setData(data);
   }
 
-  addDeckOverlay(deckLayers: [], tooltip: any = null) {
+  addDeckOverlay(deckLayers: [], tooltip: any = null): void {
     if (typeof this._JSONConverter === "undefined") {
       console.log("deck or JSONConverter is undefined");
       return;
@@ -149,7 +150,7 @@ export default class MapWidget {
     this._map.addControl(this._deckOverlay);
   }
 
-  _convertDeckLayers(deckLayers: [], tooltip: any = null) {
+  _convertDeckLayers(deckLayers: [], tooltip: any = null): any {
     return deckLayers.map((deckLayer: any) => {
       const tooltip_ =
         tooltip && typeof tooltip === "object"
@@ -169,13 +170,13 @@ export default class MapWidget {
     });
   }
 
-  setDeckLayers(deckLayers: [], tooltip: any = null) {
+  setDeckLayers(deckLayers: [], tooltip: any = null): void {
     console.log("Updating Deck.GL layers");
     const layers = this._convertDeckLayers(deckLayers, tooltip);
     this._deckOverlay.setProps({ layers });
   }
 
-  addMapboxDraw(options: object, position: string, geojson: object | null = null) {
+  addMapboxDraw(options: object, position: string, geojson: object | null = null): void {
     const draw = new MapboxDraw(options);
     this._map.addControl(draw, position);
     if (geojson) draw.add(geojson);
@@ -206,7 +207,7 @@ export default class MapWidget {
     }
   }
 
-  render(calls: [string, any][]) {
+  render(calls: [string, any][]): void {
     calls.forEach(([name, params]: [name: string, params: []]) => {
       // Custom method
       if (

@@ -1,8 +1,8 @@
 import MapWidget from "./pywidget";
 import { getViewState } from "./utils";
 
-const version = "0.2.7";
-console.log("py-maplibregl-bindings", version);
+const VERSION = "0.3.0";
+console.log("maplibregl-bindings", VERSION);
 
 if (typeof Shiny === "undefined") {
     (window as any).pymaplibregl = function ({ mapOptions, calls }: { mapOptions: MapOptions, calls: [string, any][] }) {

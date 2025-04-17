@@ -24585,8 +24585,8 @@ ${n2.shaderPreludeCode.vertexSource}`, define: n2.shaderDefine }, defaultProject
       Object.defineProperty(exports, "__esModule", { value: true });
       var pywidget_1 = __importDefault(require_pywidget());
       var utils_1 = require_utils();
-      var version = "0.2.7";
-      console.log("py-maplibregl-bindings", version);
+      var VERSION = "0.3.0";
+      console.log("maplibregl-bindings", VERSION);
       if (typeof Shiny === "undefined") {
         window.pymaplibregl = function({ mapOptions, calls }) {
           const id = "pymaplibregl";
