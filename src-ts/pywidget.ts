@@ -6,7 +6,7 @@ import "@maptiler/geocoding-control/style.css";
 import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
 
 // @ts-expect-error
-maplibregl.GeocodingControl = GeocodingControl;
+maplibregl.MapTilerGeocodingControl = GeocodingControl;
 
 // Add pmtiles protocol
 import { Protocol } from "pmtiles";
@@ -26,7 +26,7 @@ maplibregl.LayerSwitcherControl = LayerSwitcherControl;
 
 import {
   getTextFromFeature,
-  getDeckTooltip,
+  // getDeckTooltip,
   getDeckMapLibrePopupTooltip,
 } from "./utils";
 
@@ -78,11 +78,6 @@ export default class MapWidget {
   }
 
   addControl(type: string, options: any, position: string): void {
-    /*
-    if (type === "GeocodingControl") {
-      options.maplibregl = maplibregl;
-    }
-    */
     // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }
