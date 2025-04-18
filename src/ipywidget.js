@@ -11,7 +11,7 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 
 // Add maptiler geocoding control
 import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
-maplibregl.GeocodingControl = GeocodingControl;
+maplibregl.MapTilerGeocodingControl = GeocodingControl;
 
 // Add custom controls
 import InfoBoxControl from "./custom-controls/info-box";
