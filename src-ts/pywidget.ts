@@ -2,6 +2,10 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@maptiler/geocoding-control/style.css";
 
+// ...
+import geocoder from "./plugins/maplibre-geocoder";
+console.log(geocoder);
+
 // Add maptiler geocoding control
 import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
 
@@ -77,7 +81,12 @@ export default class MapWidget {
     this._map[name](...params);
   }
 
-  addControl(type: string, options: any, position: string): void {
+  addControl(type: string, options: any, position: maplibregl.ControlPosition): void {
+    if (type === "GeocodingControl") {
+      this._map.addControl(geocoder({ ...options, ...{ maplibregl: maplibregl } }), position);
+      return;
+    }
+
     // @ts-expect-error
     this._map.addControl(new maplibregl[type](options), position);
   }

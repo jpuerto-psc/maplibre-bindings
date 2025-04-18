@@ -34,6 +34,7 @@ const mapData = {
         ["addControl", ["LayerSwitcherControl", { layerIds: ["earthquakes"] }]],
         ["addControl", ["InfoBoxControl", { content: "Hi there!", cssText: "background: yellow; padding: 20px; color: blue;" }, "top-left"]],
         // ["addControl", ["MapTilerGeocodingControl", { apiKey: "maptiler-api-key" }]],
+        ["addControl", ["GeocodingControl", { showResultsWhileTyping: true }, "top-left"]],
     ]
 };
 
