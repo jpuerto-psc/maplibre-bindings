@@ -34,4 +34,10 @@ type LayerSwitcherControlOptions = {
   cssText: string;
 };
 
-// type MapLibreKey = keyof typeof maplibregl;
+/*
+type AnyWidgetModel = {
+  get: Function;
+  set: Function;
+  save_changes: Function;
+}
+*/
