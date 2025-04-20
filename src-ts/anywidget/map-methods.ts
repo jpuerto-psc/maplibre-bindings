@@ -4,6 +4,8 @@ import * as deckLayerCatalog from "./deck-layers";
 
 import MapboxDraw from "./mapbox-draw-plugin";
 
+import geocoder from "../plugins/maplibre-geocoder";
+
 import { getTextFromFeature, getDeckTooltip } from "../utils";
 
 const jsonConverter = new JSONConverter({
@@ -56,8 +58,13 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
     },
 
     addControl: function (type: string, options: any, position: maplibregl.ControlPosition): void {
+      if (type === "GeocodingControl") {
+        map.addControl(geocoder({ ...options, ...{ maplibregl: maplibregl } }), position);
+        return;
+      }
+
       if (type === "MapTilerGeocodingControl") {
-        options.maplibregl = maplibregl;
+        // options.maplibregl = maplibregl;
       }
 
       map.addControl(new maplibregl[type](options), position);

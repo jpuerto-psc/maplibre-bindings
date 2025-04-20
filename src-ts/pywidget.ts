@@ -4,7 +4,7 @@ import "@maptiler/geocoding-control/style.css";
 
 // ...
 import geocoder from "./plugins/maplibre-geocoder";
-console.log(geocoder);
+// console.log(geocoder);
 
 // Add maptiler geocoding control
 import { GeocodingControl } from "@maptiler/geocoding-control/maplibregl";
