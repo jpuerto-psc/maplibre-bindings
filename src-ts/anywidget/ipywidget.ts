@@ -47,7 +47,10 @@ function updateModel(model: AnyModel, map: maplibregl.Map): void {
   model.save_changes();
 }
 
-function createMap(mapOptions: maplibregl.MapOptions, model: AnyModel): maplibregl.Map {
+function createMap(
+  mapOptions: maplibregl.MapOptions,
+  model: AnyModel,
+): maplibregl.Map {
   const map = new maplibregl.Map(mapOptions);
 
   map.on("mouseover", () => {
@@ -86,7 +89,7 @@ function createMap(mapOptions: maplibregl.MapOptions, model: AnyModel): maplibre
   return map;
 }
 
-function render({ model, el }: { model: AnyModel, el: HTMLElement }) {
+function render({ model, el }: { model: AnyModel; el: HTMLElement }) {
   console.log("anywidget", "render");
 
   const container = createContainer(model);

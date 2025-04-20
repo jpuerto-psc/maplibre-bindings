@@ -30,14 +30,17 @@ function _convertDeckLayer(deckLayers: any[]): any[] {
   );
 }
 
-
 // Custom map methods
 function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
   let deckOverlay: any = null; // MapboxOverlay | null = null;
   let draw: any = null;
 
   return {
-    addTooltip: function (layerId: string, property = null, template = null): void {
+    addTooltip: function (
+      layerId: string,
+      property = null,
+      template = null,
+    ): void {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false,
@@ -57,9 +60,16 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       });
     },
 
-    addControl: function (type: string, options: any, position: maplibregl.ControlPosition): void {
+    addControl: function (
+      type: string,
+      options: any,
+      position: maplibregl.ControlPosition,
+    ): void {
       if (type === "GeocodingControl") {
-        map.addControl(geocoder({ ...options, ...{ maplibregl: maplibregl } }), position);
+        map.addControl(
+          geocoder({ ...options, ...{ maplibregl: maplibregl } }),
+          position,
+        );
         return;
       }
 
@@ -70,7 +80,11 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       map.addControl(new maplibregl[type](options), position);
     },
 
-    addPopup: function (layerId: string, property: string | null = null, template: string | null = null): void {
+    addPopup: function (
+      layerId: string,
+      property: string | null = null,
+      template: string | null = null,
+    ): void {
       const popupOptions = {
         closeButton: false,
       };
@@ -84,7 +98,11 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       });
     },
 
-    addMarker: function ({ lngLat, popup, options }: {
+    addMarker: function ({
+      lngLat,
+      popup,
+      options,
+    }: {
       lngLat: any;
       popup: Popup;
       options: maplibregl.MarkerOptions;
@@ -97,8 +115,12 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       marker.addTo(map);
     },
 
-    setSourceData: function (sourceId: string, data: GeoJSON.GeoJSON | string): void {
-      const source: maplibregl.GeoJSONSource | undefined = map.getSource(sourceId);
+    setSourceData: function (
+      sourceId: string,
+      data: GeoJSON.GeoJSON | string,
+    ): void {
+      const source: maplibregl.GeoJSONSource | undefined =
+        map.getSource(sourceId);
       source?.setData(data);
       // map.getSource(sourceId).setData(data);
     },
@@ -124,7 +146,11 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       });
     },
 
-    addMapboxDraw(options: any, position: maplibregl.ControlPosition, geojson = null): void {
+    addMapboxDraw(
+      options: any,
+      position: maplibregl.ControlPosition,
+      geojson = null,
+    ): void {
       draw = new MapboxDraw(options);
       map.addControl(draw, position);
       if (geojson) draw.add(geojson);

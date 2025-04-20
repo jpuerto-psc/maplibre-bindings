@@ -81,9 +81,16 @@ export default class MapWidget {
     this._map[name](...params);
   }
 
-  addControl(type: string, options: any, position: maplibregl.ControlPosition): void {
+  addControl(
+    type: string,
+    options: any,
+    position: maplibregl.ControlPosition,
+  ): void {
     if (type === "GeocodingControl") {
-      this._map.addControl(geocoder({ ...options, ...{ maplibregl: maplibregl } }), position);
+      this._map.addControl(
+        geocoder({ ...options, ...{ maplibregl: maplibregl } }),
+        position,
+      );
       return;
     }
 
