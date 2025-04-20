@@ -74,7 +74,7 @@ function getCustomMapMethods(maplibregl: any, map: maplibregl.Map) {
       }
 
       if (type === "MapTilerGeocodingControl") {
-        // options.maplibregl = maplibregl;
+        options.maplibregl = maplibregl;
       }
 
       map.addControl(new maplibregl[type](options), position);
